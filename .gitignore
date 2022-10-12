@@ -1,0 +1,22 @@
+node_modules/
+
+# Parcel
+dist/
+.cache/
+
+# Typescript
+client/*.js*
+server/*.js*
+client/*.d.ts*
+server/*.d.ts*
+tsconfig.tsbuildinfo
+
+# Npm
+npm-debug.log*
+package-lock.json
+
+# Yarn
+yarn-error.log
+
+# MacOS
+.DS_Store
