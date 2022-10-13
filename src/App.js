@@ -1,31 +1,21 @@
 import React, {useState} from 'react';
+import Counter from "./components/Counter";
 
 function App() {
-  const [likes, setLikes] = useState(5);
-  const [value, setValue] = useState('basic text');
+    const [value, setValue] = useState('basic text');
 
-  function increment() {
-    setLikes(likes + 1);
-  }
-
-  function dicrement() {
-    setLikes(likes - 1);
-  }
-
-
-  return (
-    <div className="App">
-      <h1>{likes}</h1>
-      <h2>{value}</h2>
-      <input 
-        type="text" 
-        value={value}
-        onChange={event => setValue(event.target.value)} 
-      /> 
-      <button onClick={increment}>Increment</button>
-      <button onClick={dicrement}>Decrement</button>
-    </div>
-  );
+    return (
+      <div className="App">
+        <h2>{value}</h2>
+        <input 
+          type="text" 
+          value={value}
+          onChange={event => setValue(event.target.value)} 
+        />
+        <Counter/>
+        <Counter/>
+      </div>
+    );
 }
 
 // onChange={event => setValue(event.target.value)}
