@@ -5,31 +5,54 @@ import PostList from "./components/PostList";
 import CustomButton from "./components/UI/button/CustomButton";
 import CustomInput from "./components/UI/input/CustomInput";
 import "./styles/App.css";
+import PostForm from "./components/PostForm";
 
 function App() {
     const [value, setValue] = useState('basic text');
 
     // массив обычных объектов: МОО
     const [posts, setPosts] = useState([
-      {id: 1, title: 'JS', desc: 'Good language'},
-      {id: 2, title: 'C#', desc: 'Good language two'}
+      {id: 1, title: 'JS', body: 'Good language'},
+      {id: 2, title: 'C#', body: 'Good language two'}
     ]);
 
     const [posts2, setPosts2] = useState([
-      {id: 1, title: 'TS', desc: 'Very good language'},
-      {id: 2, title: 'SQL', desc: 'Very good language two'}
+      {id: 1, title: 'TS', body: 'Very good language'},
+      {id: 2, title: 'SQL', body: 'Very good language two'}
     ]);
 
-    const [inputva, setInputva] = useState('any text');
+    // Вместо строк можно использовать объект если много полей
+    const [oldTitle, setOldTitle] = useState('title text');
+    const [oldBody, setOldBody] = useState();
+    const [post, setPost] = useState({
+        title: '',
+        body: ''
+    });
 
-    const bodyInputRef = useRef();
+
+    //// const bodyInputRef = useRef();
 
     const addNewPost = (e) => {
-      e.preventDefault();
-      console.log(inputva);
-      console.log(bodyInputRef.current.value);
-    }
+        e.preventDefault();
+        //// console.log(bodyInputRef.current.value);
+        /*
+        const newPost = {
+            id: Date.now(),
+            title,
+            body
+        }
+        */
+        // Разворачиваем старый масиив с постами и добавляем в конец новый массив
+        //// setPosts([...posts, newPost]);
+        //// setTitle('');
+        //// setBody('');
 
+        setPosts([...posts, {...post, id: Date.now()}]);
+        setPost({
+            title: '',
+            body: ''
+        });
+    }
     
     return (
       <div className="App">
@@ -41,7 +64,7 @@ function App() {
         <input 
           type="text" 
           value={value}
-          onChange={event => setValue(event.target.value)} 
+          onChange={event => setValue(event.target.value)}
         />
 
         <PostList posts={posts} title="Заголовок постов 1" />
@@ -64,19 +87,28 @@ function App() {
 
         <form>
           {/* Управляемый компонент. Реализ такоеже двустороние связывание */}
-          <CustomInput 
-            value={inputva}
-            onChange={e => setInputva(e.target.value)}
-            type="text" 
-            placeholder="Header post" 
+          <CustomInput
+            value={post.title}
+            onChange={event => setPost({...post, title: event.target.value})}
+            type="text"
+            placeholder="Header post"
           />
-
-          {/* Неуправляемый/Неконтролируемый компонент */}
-          <CustomInput 
-            ref={bodyInputRef}
-            type="text" 
+          <CustomInput
+            value={post.body}
+            onChange={event => setPost({...post, body: event.target.value})}
+            type="text"
             placeholder="Desc post"
           />
+          {/* Неуправляемый/Неконтролируемый компонент */}
+          {/*
+            <CustomInput
+              ref={bodyInputRef}
+              type="text"
+              placeholder="Desc post"
+            />
+          */}
+
+          {/*<PostForm />*/}
 
           <CustomButton disabled>Создать откл.</CustomButton>
           <CustomButton onClick={addNewPost}>Создать пост</CustomButton>
